@@ -1,0 +1,45 @@
+﻿@model List<Claim>
+@{
+    ViewData["Title"] = "Track Claims";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary">Track Claims</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Lecturer</th>
+                <th>Hours</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Submitted</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Model)
+            {
+                <tr>
+                    <td>@claim.LecturerName</td>
+                    <td>@claim.HoursWorked</td>
+                    <td>R @claim.TotalAmount</td>
+                    <td>
+                        @if (claim.Status == "Approved")
+                        {
+                            <span class="badge bg-success">@claim.Status</span>
+                        }
+                        else if (claim.Status == "Rejected")
+                        {
+                            <span class="badge bg-danger">@claim.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning">@claim.Status</span>
+                        }
+                    </td>
+                    <td>@claim.SubmittedDate.ToString("MMM dd, yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

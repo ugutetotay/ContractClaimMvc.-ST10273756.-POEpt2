@@ -1,0 +1,63 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Create New User</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Employee ID (Optional)</label>
+                            <input asp-for="EmployeeId" class="form-control">
+                            <small class="text-muted">Leave blank to auto-generate</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <select asp-for="Role" class="form-control" required>
+                                <option value="Lecturer">Lecturer</option>
+                                <option value="Coordinator">Coordinator</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="hourlyRateSection">
+                            <label class="form-label">Hourly Rate (R)</label>
+                            <input asp-for="HourlyRate" type="number" class="form-control" min="0" max="1000">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Department</label>
+                            <input asp-for="Department" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Show hourly rate only for lecturers
+        $('#Role').change(function() {
+            $('#hourlyRateSection').toggle($(this).val() === 'Lecturer');
+        }).trigger('change');
+    </script>
+}

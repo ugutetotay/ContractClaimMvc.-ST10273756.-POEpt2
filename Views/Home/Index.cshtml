@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "ABC Claim System";
+}
+
+<div class="container mt-4">
+    <!-- Main Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-danger fw-bold">ABC Claim System</h1>
+        <p class="lead text-dark">Submit and track your contract claims easily</p>
+    </div>
+
+    <!-- Welcome Message for Logged In Users -->
+    @if (!string.IsNullOrEmpty(Context.Session.GetString("UserName")))
+    {
+        <div class="alert alert-success text-center">
+            <h4>Welcome back, @Context.Session.GetString("UserName")!</h4>
+            <p class="mb-0">What would you like to do today?</p>
+        </div>
+
+        <div class="row text-center mt-4">
+            <div class="col-md-4 mb-3">
+                <a href="/Claims/Submit" class="btn btn-danger btn-lg w-100">
+                    <i class="fas fa-plus"></i> Submit Claim
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="/Claims/Track" class="btn btn-dark btn-lg w-100">
+                    <i class="fas fa-list"></i> View Claims
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="/Claims/Approve" class="btn btn-warning btn-lg w-100">
+                    <i class="fas fa-check"></i> Approve Claims
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Login/Register Options -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-danger">
+                    <div class="card-header bg-danger text-white text-center">
+                        <h4 class="mb-0">Get Started</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="card-text">Please login or register to use the system</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-3">
+                                <a href="/Account/Login" class="btn btn-danger btn-lg w-100">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a href="/Account/Register" class="btn btn-dark btn-lg w-100">
+                                    <i class="fas fa-user-plus"></i> Register
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Demo Accounts Info -->
+                        <div class="mt-4 p-3 bg-light border rounded">
+                            <h6 class="text-danger">Demo Accounts (for testing):</h6>
+                            <p class="mb-1"><strong>Lecturer:</strong> lecturer@abc.com / 123456</p>
+                            <p class="mb-0"><strong>Student:</strong> student@abc.com / 123456</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Simple Features Section -->
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-paper-plane fa-2x text-danger mb-3"></i>
+                    <h5 class="card-title">Submit Claims</h5>
+                    <p class="card-text">Submit your monthly work claims with documents</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-check-circle fa-2x text-danger mb-3"></i>
+                    <h5 class="card-title">Track Status</h5>
+                    <p class="card-text">See if your claims are approved or pending</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-2x text-danger mb-3"></i>
+                    <h5 class="card-title">View History</h5>
+                    <p class="card-text">Check your previous claims and payments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

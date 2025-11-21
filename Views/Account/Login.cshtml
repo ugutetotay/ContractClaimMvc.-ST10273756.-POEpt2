@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">ABC Claim System Login</h4>
+                </div>
+                <div class="card-body p-4">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                    }
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            @Html.ValidationSummary()
+                        </div>
+                    }
+
+                    <form method="post" asp-action="Login" asp-controller="Account">
+                        <div class="mb-3">
+                            <label class="form-label">Employee ID</label>
+                            <input type="text" name="employeeId" class="form-control" value="HR001" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" value="123456" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 btn-lg">Login</button>
+                    </form>
+
+                    <div class="mt-4 p-3 bg-light border rounded">
+                        <h6 class="text-danger">Demo Accounts:</h6>
+                        <p class="mb-1"><strong>HR:</strong> HR001 / 123456</p>
+                        <p class="mb-1"><strong>Lecturer:</strong> LEC001 / 123456</p>
+                        <p class="mb-1"><strong>Coordinator:</strong> CO001 / 123456</p>
+                        <p class="mb-0"><strong>Manager:</strong> MGR001 / 123456</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

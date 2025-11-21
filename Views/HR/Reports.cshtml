@@ -1,0 +1,56 @@
+﻿@model List<Claim>
+@{
+    ViewData["Title"] = "HR - Reports";
+    var totalAmount = Model.Sum(c => c.TotalAmount);
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger mb-4">Approved Claims Report</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h4>@Model.Count</h4>
+                    <p>Total Approved Claims</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h4>R @totalAmount</h4>
+                    <p>Total Amount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Lecturer</th>
+                    <th>Hours</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                    <th>Approved By</th>
+                    <th>Date Approved</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model)
+                {
+                    <tr>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>R @claim.HourlyRate</td>
+                        <td class="fw-bold">R @claim.TotalAmount</td>
+                        <td>@claim.ProcessedByName</td>
+                        <td>@claim.ProcessedDate?.ToString("MMM dd, yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

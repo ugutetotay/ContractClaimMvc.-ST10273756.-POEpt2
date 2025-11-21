@@ -1,0 +1,46 @@
+﻿@model List<Claim>
+@{
+    ViewData["Title"] = "Pending Claims";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger mb-4">Pending Claims Approval</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No pending claims to approve.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var claim in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning d-flex justify-content-between">
+                            <strong>@claim.LecturerName</strong>
+                            <span class="badge bg-dark">Pending</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Hours:</strong> @claim.HoursWorked</p>
+                            <p><strong>Rate:</strong> R @claim.HourlyRate</p>
+                            <p><strong>Total:</strong> R @claim.TotalAmount</p>
+                            <p><strong>Notes:</strong> @claim.Notes</p>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <form method="post" action="/Coordinator/ApproveClaim">
+                                    <input type="hidden" name="id" value="@claim.ClaimId">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+                                </form>
+                                <form method="post" action="/Coordinator/RejectClaim">
+                                    <input type="hidden" name="id" value="@claim.ClaimId">
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

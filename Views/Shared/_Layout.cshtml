@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ABC Claims</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #dc3545 !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-dark {
+            background-color: #000000;
+            border-color: #000000;
+        }
+
+        .card {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .footer {
+            background-color: #000000;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Simple Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-file-invoice me-2"></i>ABC Claim System
+            </a>
+
+            <!-- User Info or Login Links -->
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("UserName")))
+            {
+                <div class="navbar-nav ms-auto">
+                    <span class="nav-link">
+                        <i class="fas fa-user me-1"></i>
+                        @Context.Session.GetString("UserName")
+                    </span>
+                    <form action="/Account/Logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-light btn-sm ms-2">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/Account/Login">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    </a>
+                    <a class="nav-link" href="/Account/Register">
+                        <i class="fas fa-user-plus me-1"></i> Register
+                    </a>
+                </div>
+            }
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main>
+            <!-- Success Messages -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    <i class="fas fa-check me-2"></i> @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <!-- Page Content -->
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Simple Footer -->
+    <footer class="footer py-3 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">
+                <i class="fas fa-school me-2"></i>
+                © 2025 - ABC College Claim System
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ABC Claims</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #dc3545 !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">ABC Claim System</a>
+
+            @if (SessionHelper.IsLoggedIn(Context.Session))
+            {
+                <div class="navbar-nav ms-auto">
+                    <span class="nav-link">@SessionHelper.GetUserName(Context.Session) (@SessionHelper.GetUserRole(Context.Session))</span>
+                    <form method="post" action="/Account/Logout" class="d-inline">
+                        <button type="submit" class="btn btn-outline-light btn-sm ms-2">Logout</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show mt-3">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container text-center py-3">
+            &copy; 2025 - ABC Retail Contract System
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

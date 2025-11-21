@@ -1,0 +1,164 @@
+﻿@{
+    ViewData["Title"] = "Welcome to ABC Claim System";
+}
+
+<div class="welcome-hero">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Welcome to ABC Claim System</h1>
+        <p class="lead mb-4">Streamline your contract claims with our easy-to-use platform</p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="mt-4">
+                <h3 class="mb-3">Welcome back, @User.Identity.Name! 👋</h3>
+                <a href="/Claims/Submit" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-plus-circle"></i> Submit New Claim
+                </a>
+                <a href="/Claims/Track" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-chart-line"></i> Track Claims
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="auth-section">
+                    <h2 class="text-center mb-4" style="color: var(--primary);">Get Started Today</h2>
+                    <p class="text-center text-muted mb-5">Join thousands of users managing their claims efficiently</p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </div>
+                                <h4 style="color: var(--primary);">Login</h4>
+                                <p class="text-muted">Access your existing account</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h4 style="color: var(--success);">Register</h4>
+                                <p class="text-muted">Create a new account</p>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                    <i class="fas fa-user-plus me-2"></i>Register
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Features Section -->
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <h4>Submit Claims</h4>
+                <p class="text-muted">Easily submit your monthly contract claims with supporting documents</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h4>Track Progress</h4>
+                <p class="text-muted">Monitor your claim status in real-time from submission to approval</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4>Analytics</h4>
+                <p class="text-muted">Get insights into your claim history and approval rates</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;">
+                <h5 class="modal-title"><i class="fas fa-sign-in-alt me-2"></i>Login</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" name="password" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--success) 0%, #20c997 100%); color: white;">
+                <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Register</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <div class="mb-3">
+                        <label for="registerFullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="registerFullName" name="FullName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" name="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerRole" class="form-label">Role</label>
+                        <select class="form-control" id="registerRole" name="Role" required>
+                            <option value="Student">Student</option>
+                            <option value="Lecturer">Lecturer</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
